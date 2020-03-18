@@ -5,7 +5,6 @@
 //  Copyright © 2020 Dupla com H. All rights reserved.
 //
 import Foundation
-
 struct AtividadeDia: Equatable{
     var nomeAtividade: String
     var horarioAtividade: String
@@ -191,7 +190,44 @@ func visualizarAtividadesDiarias() -> String?{
    return nil
 }
 func visualizarAtividadesSemanais() -> String?{return nil}
-func visualizarAtividadesMensais() -> String?{return nil}
+func visualizarAtividadesMensais() -> String?{
+  let mesEscolhido = escolheMes()
+    let diaMax = verificarQntdDias(mesEscolhido: mesEscolhido)
+    let mesTrans = transformaMes(mesEscolhido: mesEscolhido) //Transforma 0 em Janeiro, 1 em Fevereiro...
+    print("\nMês \(mesTrans)")
+    for diaEscolhido in 1...diaMax{
+      ano[mesEscolhido][diaEscolhido-1].atividadesDoDia = sortHorario(dia: &ano[mesEscolhido][diaEscolhido-1])
+    if ano[mesEscolhido][diaEscolhido-1].atividadesDoDia.count == 0{
+        print("\nNão há atividades no dia \(diaEscolhido)")
+    }
+    else{
+        print("\nDia \(diaEscolhido)")//alterar o 0 por variável
+        for atividade in ano[mesEscolhido][diaEscolhido-1].atividadesDoDia{
+            print("Atividade:\(atividade.nomeAtividade)      Horário:\(atividade.horarioAtividade)")
+        }
+    }
+    }
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  return nil
+  }
 func adicionarAtividade() -> String?{
         let mesEscolhido = escolheMes()
         let i = verificaDia(diaMax: verificarQntdDias(mesEscolhido: mesEscolhido))
