@@ -1,9 +1,11 @@
+//
 //  main.swift
-//  plannercomH
+//  plannerComH
 //
-//  Created by Dupla com H on 09/03/20.
-//  Copyright © 2020 Dupla com H. All rights reserved.
+//  Created by Helaine Pontes on 30/03/20.
+//  Copyright © 2020 Helaine Pontes. All rights reserved.
 //
+
 import Foundation
 struct AtividadeDia: Equatable{
     var nomeAtividade: String
@@ -105,8 +107,8 @@ func verificaHorario() -> String{
 }
 func sortHorario(dia: inout Dias) -> [AtividadeDia]{
   var diaSorted: [AtividadeDia] = []
-  if dia.atividadesDoDia.count != 0{ 
-    for _ in 1...dia.atividadesDoDia.count{  
+  if dia.atividadesDoDia.count != 0{
+    for _ in 1...dia.atividadesDoDia.count{
       var menorAtividade = dia.atividadesDoDia[0]
       for atividade in dia.atividadesDoDia{
         let horario = atividade.horarioAtividade.split(separator: ":")
@@ -183,7 +185,7 @@ func visualizarAtividadesDiarias() -> String?{
     let diaEscolhido = verificaDia(diaMax:verificarQntdDias(mesEscolhido: mesEscolhido))
     ano[mesEscolhido][diaEscolhido-1].atividadesDoDia = sortHorario(dia: &ano[mesEscolhido][diaEscolhido-1])
     if ano[mesEscolhido][diaEscolhido-1].atividadesDoDia.count == 0{
-        print("\nNão há atividades no dia \(diaEscolhido)")
+        print("\nNão há atividades no dia \(diaEscolhido) do mês \(transformaMes(mesEscolhido: mesEscolhido))")
     }
     else{
         let mesTrans = transformaMes(mesEscolhido: mesEscolhido)//Transforma 0 em Janeiro, 1 em Fevereiro...
@@ -197,7 +199,7 @@ func visualizarAtividadesDiarias() -> String?{
 func visualizarAtividadesSemanais() -> String?{
   var mesEscolhido = escolheMes()
   var diaEscolhido = verificaDia(diaMax:verificarQntdDias(mesEscolhido: mesEscolhido))
-  for _ in 0...6{  
+  for _ in 0...6{
     if ano[mesEscolhido][diaEscolhido-1].nomeDiaSemana == "Domingo"{
       var i = 0
       for _ in 0...6{
@@ -205,10 +207,13 @@ func visualizarAtividadesSemanais() -> String?{
             mesEscolhido+=1
             diaEscolhido=1
             i=0
-            }
-          print("\nMês: \(mesEscolhido+1) Dia: \(diaEscolhido+i) , \(ano[mesEscolhido][diaEscolhido-1+i].nomeDiaSemana)")
+        }
+        if(mesEscolhido == 12){
+            return nil
+        }
+        print("\nMês: \(transformaMes(mesEscolhido: mesEscolhido))    Dia: \(diaEscolhido+i) , \(ano[mesEscolhido][diaEscolhido-1+i].nomeDiaSemana)")
           for atividade in ano[mesEscolhido][diaEscolhido-1+i].atividadesDoDia{
-            print("Atividade:\(atividade.nomeAtividade)      Horário:\(atividade.horarioAtividade) ")  
+            print("Atividade:\(atividade.nomeAtividade)      Horário:\(atividade.horarioAtividade) ")
             }
           i+=1
           
@@ -330,3 +335,4 @@ while(true) {
         print("\nEntrada inválida")
     }
 }
+
