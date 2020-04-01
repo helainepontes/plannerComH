@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct AtividadeDia: Equatable{
     var nomeAtividade: String
     var horarioAtividade: String
@@ -211,6 +212,7 @@ func visualizarAtividadesSemanais() -> String?{
         if(mesEscolhido == 12){
             return nil
         }
+        ano[mesEscolhido][diaEscolhido-1].atividadesDoDia = sortHorario(dia: &ano[mesEscolhido][diaEscolhido-1])
         print("\nMês: \(transformaMes(mesEscolhido: mesEscolhido))    Dia: \(diaEscolhido+i) , \(ano[mesEscolhido][diaEscolhido-1+i].nomeDiaSemana)")
           for atividade in ano[mesEscolhido][diaEscolhido-1+i].atividadesDoDia{
             print("Atividade:\(atividade.nomeAtividade)      Horário:\(atividade.horarioAtividade) ")
@@ -242,6 +244,7 @@ func visualizarAtividadesMensais() -> String?{
         print("\nNão há atividades no dia \(diaEscolhido), \(ano[mesEscolhido][diaEscolhido-1].nomeDiaSemana)")
     }
     else{
+        ano[mesEscolhido][diaEscolhido-1].atividadesDoDia = sortHorario(dia: &ano[mesEscolhido][diaEscolhido-1])
         print("\nDia \(diaEscolhido), \(ano[mesEscolhido][diaEscolhido-1].nomeDiaSemana)")//alterar o 0 por variável
         for atividade in ano[mesEscolhido][diaEscolhido-1].atividadesDoDia{
             print("Atividade:\(atividade.nomeAtividade)      Horário:\(atividade.horarioAtividade)")
@@ -251,12 +254,12 @@ func visualizarAtividadesMensais() -> String?{
   return nil
   }
 func adicionarAtividade() -> String?{
-        let mesEscolhido = escolheMes()
-        let i = verificaDia(diaMax: verificarQntdDias(mesEscolhido: mesEscolhido))
+        let mesEscolhido = escolheMes()//lê o número do mês e verifica se o mes é valido 0-11
+        let i = verificaDia(diaMax: verificarQntdDias(mesEscolhido: mesEscolhido))//lê o valor do dia e verifica se é válido, por exemplo dia 30 de fevereiro(inválido)
         print("\nO que você pretende fazer?")
         let nomeAtividade = readLine() ?? "Vazio"
-        let horarioAtividade = verificaHorario()
-        ano[mesEscolhido][i-1].atividadesDoDia.append(AtividadeDia(nomeAtividade: nomeAtividade, horarioAtividade: horarioAtividade))
+        let horarioAtividade = verificaHorario()//lê o horário e verifica se é válido e está dentro do formato escolhido(HH:MM)
+        ano[mesEscolhido][i-1].atividadesDoDia.append(AtividadeDia(nomeAtividade: nomeAtividade, horarioAtividade: horarioAtividade))// a variável ano é um array de meses, meses é um array de dias e dias é uma struct que possui um número e um array de atividades e AtividadeDia é uma struct que possui um nome e um horário.
         print("\nVocê adicionou a atividade '\(nomeAtividade)' com sucesso\n")
     return nil
 }
@@ -316,6 +319,7 @@ func alterarAtividade() -> String?{
     }
     return nil
     }
+
 while(true) {
     print("Deseja criar um planner? 1-Sim 2-Não")
     let criarPlanner: String?
@@ -335,4 +339,3 @@ while(true) {
         print("\nEntrada inválida")
     }
 }
-
