@@ -8,6 +8,20 @@
 
 import Foundation
 
+enum MesesAno: String, CaseIterable {
+   case janeiro 
+   case feveireiro
+   case marco
+   case abril
+   case maio
+   case junho
+   case julho
+   case agosto
+   case setembro
+   case outubro
+   case novembro
+   case dezembro
+}
 struct AtividadeDia: Equatable{
     var nomeAtividade: String
     var horarioAtividade: String
@@ -61,37 +75,11 @@ func escolheMes() -> Int{
     print("\nEsse mês não existe!")
     return escolheMes()
 }
-func transformaMes(mesEscolhido: Int) -> String{
-    switch(mesEscolhido){
-    case 0:
-        return "Janeiro"
-    case 1:
-        return "Fevereiro"
-    case 2:
-        return "Março"
-    case 3:
-        return "Abril"
-    case 4:
-        return "Maio"
-    case 5:
-        return "Junho"
-    case 6:
-        return "Julho"
-    case 7:
-        return "Agosto"
-    case 8:
-        return "Setembro"
-    case 9:
-        return "Outubro"
-    case 10:
-        return "Novembro"
-    case 11:
-        return "Dezembro"
-    default:
-        return "Tá errado kk" //mudar esse return
-    
-    }
+
+func transformaMes(mesEscolhido: Int) -> String {
+    return MesesAno.allCases[mesEscolhido].rawValue
 }
+
 func verificaHorario() -> String{
     print("\nQual o horário da atividade? HH:MM ")
     let horarioAtividade = readLine() ?? "Vazio"
